@@ -1,0 +1,15 @@
+node_modules/
+.expo/
+dist/
+web-build/
+*.log
+.env
+.env.local
+.DS_Store
+expo-env.d.ts
+dist-test/
+.supabase-db-password
+.vapid-keys.json
+.smtp-password
+.vercel-link-backup/
+.web-build-tmp/

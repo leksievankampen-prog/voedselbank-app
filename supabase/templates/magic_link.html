@@ -1,0 +1,41 @@
+<!--
+  Inlogmail van de Voedselbank Haarlemmermeer.
+
+  De app vraagt om een code, niet om een klik op een link: een link opent op een
+  telefoon vaak in een andere browser dan waar de app draait, en dan raakt de
+  sessie zoek. Vandaar {{ .Token }} in plaats van {{ .ConfirmationURL }}.
+
+  Drie talen onder elkaar, omdat we bij het versturen nog niet weten welke taal
+  de ontvanger in de app heeft ingesteld.
+-->
+<div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; max-width: 480px; margin: 0 auto; padding: 24px; color: #171310;">
+
+  <p style="font-size: 20px; font-weight: 800; color: #FF7212; margin: 0 0 24px;">
+    Voedselbank Haarlemmermeer
+  </p>
+
+  <p style="font-size: 16px; line-height: 1.5; margin: 0 0 8px;">
+    Vul deze code in de app in:
+  </p>
+
+  <p style="font-size: 34px; font-weight: 800; letter-spacing: 10px; margin: 0 0 8px; color: #171310;">
+    {{ .Token }}
+  </p>
+
+  <p style="font-size: 14px; color: #5A5A5A; line-height: 1.5; margin: 0 0 28px;">
+    De code is één uur geldig. Heb je dit niet aangevraagd? Dan hoef je niets te doen.
+  </p>
+
+  <hr style="border: none; border-top: 1px solid #E4E1DD; margin: 0 0 20px;">
+
+  <p style="font-size: 15px; line-height: 1.5; margin: 0 0 4px; color: #5A5A5A;">
+    <strong style="color: #171310;">English</strong> — enter this code in the app.
+    It is valid for one hour. If you did not request it, you can ignore this email.
+  </p>
+
+  <p dir="rtl" style="font-size: 15px; line-height: 1.7; margin: 16px 0 0; color: #5A5A5A; text-align: right;">
+    <strong style="color: #171310;">العربية</strong> — أدخل هذا الرمز في التطبيق.
+    الرمز صالح لمدة ساعة واحدة. إذا لم تطلب ذلك، يمكنك تجاهل هذه الرسالة.
+  </p>
+
+</div>

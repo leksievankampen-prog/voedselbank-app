@@ -1,0 +1,6 @@
+# Regeleinden overal gelijk, ongeacht Windows of Mac.
+* text=auto eol=lf
+*.png binary
+*.ttf binary
+*.pptx binary
+*.mp4 binary

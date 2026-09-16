@@ -1,0 +1,90 @@
+{
+  "expo": {
+    "name": "Voedselbank Haarlemmermeer",
+    "slug": "voedselbank-haarlemmermeer",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "voedselbankhlm",
+    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "backgroundColor": "#FFFFFF",
+    "primaryColor": "#FF7212",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FF7212"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "nl.voedselbankhaarlemmermeer.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "De camera wordt alleen gebruikt om de QR-code van een klant te scannen bij de intake.",
+        "CFBundleAllowMixedLocalizations": true
+      }
+    },
+    "android": {
+      "package": "nl.voedselbankhaarlemmermeer.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FF7212"
+      },
+      "permissions": [
+        "CAMERA",
+        "POST_NOTIFICATIONS",
+        "VIBRATE"
+      ],
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/favicon.png",
+      "name": "Voedselbank Haarlemmermeer",
+      "shortName": "Voedselbank",
+      "lang": "nl",
+      "themeColor": "#FF7212",
+      "backgroundColor": "#FFFFFF",
+      "display": "standalone",
+      "startUrl": "/",
+      "orientation": "portrait"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "De camera wordt alleen gebruikt om de QR-code van een klant te scannen bij de intake."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#FF7212"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#FF7212",
+          "image": "./assets/splash.png",
+          "imageWidth": 220
+        }
+      ],
+      "expo-font",
+      "expo-status-bar"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "vul-in-na-eas-init"
+      }
+    }
+  }
+}

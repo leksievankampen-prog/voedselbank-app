@@ -1,0 +1,23 @@
+{
+  "name": "Voedselbank Haarlemmermeer",
+  "short_name": "Voedselbank",
+  "description": "Meld je aan voor een voedselpakket, toon je QR-code bij de intake en blijf op de hoogte van de uitdeeldagen.",
+  "lang": "nl",
+  "dir": "auto",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF7212",
+  "categories": ["food", "social", "utilities"],
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    { "name": "Mijn pas", "url": "/pas", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Nieuws", "url": "/nieuws", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
