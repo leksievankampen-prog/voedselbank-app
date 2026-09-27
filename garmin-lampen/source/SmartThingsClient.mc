@@ -309,7 +309,7 @@ class SmartThingsClient {
         if (ok > 0) {
             buzz();
         }
-        var text = ok + (ok == 1 ? " lamp uit" : " lampen uit");
+        var text = ok.toString() + (ok == 1 ? " lamp uit" : " lampen uit");
         if (_failed > 0) {
             text += "\n" + _failed + " mislukt";
         }
