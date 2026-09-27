@@ -4,6 +4,7 @@ import Toybox.Application.Storage;
 import Toybox.Attention;
 import Toybox.Communications;
 import Toybox.Lang;
+import Toybox.PersistedContent;
 import Toybox.StringUtil;
 import Toybox.Time;
 
@@ -13,6 +14,10 @@ const ST_TOKEN_URL = "https://auth-global.api.smartthings.com/oauth/token";
 // Moet exact zo als redirect URI in je SmartThings OAuth-app staan.
 const ST_REDIRECT_URI = "https://localhost";
 const ST_SCOPES = "r:devices:* x:devices:* r:scenes:* x:scenes:*";
+
+// Precies het type dat Communications.makeWebRequest aan een callback geeft.
+typedef WebData as Dictionary or String or PersistedContent.Iterator or Null;
+typedef WebCallback as Method(responseCode as Number, data as WebData) as Void;
 
 // Praat via de Garmin Connect-app op je telefoon met de SmartThings API.
 // Inloggen gaat via OAuth, zodat het token zichzelf ververst (een
@@ -155,13 +160,14 @@ class SmartThingsClient {
         );
     }
 
-    function onToken(code as Number, data) as Void {
-        if (code == 200 && data instanceof Dictionary && data["access_token"] != null) {
-            Storage.setValue("access_token", data["access_token"]);
-            if (data["refresh_token"] != null) {
-                Storage.setValue("refresh_token", data["refresh_token"]);
+    function onToken(code as Number, data as WebData) as Void {
+        var d = data instanceof Dictionary ? data as Dictionary : null;
+        if (code == 200 && d != null && d["access_token"] != null) {
+            Storage.setValue("access_token", d["access_token"] as String);
+            if (d["refresh_token"] != null) {
+                Storage.setValue("refresh_token", d["refresh_token"] as String);
             }
-            var expiresIn = data["expires_in"];
+            var expiresIn = d["expires_in"];
             if (!(expiresIn instanceof Number)) {
                 expiresIn = 3600;
             }
@@ -210,7 +216,7 @@ class SmartThingsClient {
             Communications.HTTP_REQUEST_METHOD_GET, method(:onDevices));
     }
 
-    function onSceneExecuted(code as Number, data) as Void {
+    function onSceneExecuted(code as Number, data as WebData) as Void {
         if (retryOnAuthError(code)) {
             return;
         }
@@ -223,7 +229,7 @@ class SmartThingsClient {
         }
     }
 
-    function onDevices(code as Number, data) as Void {
+    function onDevices(code as Number, data as WebData) as Void {
         if (retryOnAuthError(code)) {
             return;
         }
@@ -232,7 +238,8 @@ class SmartThingsClient {
             report(errorText(code), false);
             return;
         }
-        var items = data["items"];
+        var d = data as Dictionary;
+        var items = d["items"];
         if (items instanceof Array) {
             for (var i = 0; i < items.size(); i++) {
                 var item = items[i];
@@ -244,7 +251,7 @@ class SmartThingsClient {
 
         // SmartThings geeft grote lijsten in pagina's terug.
         var next = null;
-        var links = data["_links"];
+        var links = d["_links"];
         if (links instanceof Dictionary && links["next"] instanceof Dictionary) {
             next = links["next"]["href"];
         }
@@ -295,7 +302,7 @@ class SmartThingsClient {
         );
     }
 
-    function onCommand(code as Number, data) as Void {
+    function onCommand(code as Number, data as WebData) as Void {
         if (code != 200) {
             _failed++;
         }
@@ -323,7 +330,7 @@ class SmartThingsClient {
         apiRequest(ST_API + "/scenes", null, Communications.HTTP_REQUEST_METHOD_GET, method(:onScenes));
     }
 
-    function onScenes(code as Number, data) as Void {
+    function onScenes(code as Number, data as WebData) as Void {
         if (retryOnAuthError(code)) {
             return;
         }
@@ -335,7 +342,8 @@ class SmartThingsClient {
             return;
         }
         var scenes = [] as Array<Array<String>>;
-        var items = data["items"];
+        var d = data as Dictionary;
+        var items = d["items"];
         if (items instanceof Array) {
             for (var i = 0; i < items.size(); i++) {
                 var item = items[i];
@@ -357,7 +365,7 @@ class SmartThingsClient {
 
     // ---------- Hulpfuncties ----------
 
-    private function apiRequest(url as String, params as Dictionary?, httpMethod, callback as Method) as Void {
+    private function apiRequest(url as String, params as Dictionary?, httpMethod, callback as WebCallback) as Void {
         var headers = { "Authorization" => "Bearer " + Storage.getValue("access_token") };
         if (httpMethod == Communications.HTTP_REQUEST_METHOD_POST) {
             headers.put("Content-Type", Communications.REQUEST_CONTENT_TYPE_JSON);
