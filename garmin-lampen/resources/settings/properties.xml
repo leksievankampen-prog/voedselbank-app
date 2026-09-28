@@ -1,0 +1,5 @@
+<properties>
+    <property id="clientId" type="string"></property>
+    <property id="clientSecret" type="string"></property>
+    <property id="onlyLights" type="boolean">true</property>
+</properties>

@@ -1,0 +1,6 @@
+<strings>
+    <string id="AppName">Lampen uit</string>
+    <string id="ClientIdTitle">SmartThings Client ID</string>
+    <string id="ClientSecretTitle">SmartThings Client Secret</string>
+    <string id="OnlyLightsTitle">Alleen lampen (geen stekkers)</string>
+</strings>
